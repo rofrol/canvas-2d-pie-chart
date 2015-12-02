@@ -8,7 +8,7 @@ co.fillText('hello', 0, 0);
 
 var x = ca.width / 2;
 var y = ca.height / 2;
-var radius = 75;
+var radius = 300;
 var startAngle = 1.1 * Math.PI;
 var endAngle = 1.9 * Math.PI;
 var counterClockwise = false;
@@ -45,6 +45,26 @@ co.moveTo(x, y);
 co.arc(x, y, radius, prevAngle, angle, false);
 co.lineTo(x, y);
 co.fill();
+
+var pos = 0;
+
+co.beginPath();
+pos = lineToAngle(x, y, radius, prevAngle);
+co.moveTo(x, y);
+co.lineTo(pos.x, pos.y);
 co.stroke();
+
+co.beginPath();
+pos = lineToAngle(x, y, radius, angle);
+co.moveTo(x, y);
+co.lineTo(pos.x, pos.y);
+co.stroke();
+
+function lineToAngle(x, y, length, angle) {
+    return {
+        x: x + length * Math.cos(angle),
+        y: y + length * Math.sin(angle)
+    }
+}
 
 
