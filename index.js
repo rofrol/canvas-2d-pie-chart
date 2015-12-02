@@ -9,4 +9,5 @@ co.fillText("hello", 0, 0);
 co.beginPath();
 co.moveTo(30, 30);
 co.lineTo(50, 50);
+co.lineWidth = 5;
 co.stroke();
