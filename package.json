@@ -1,0 +1,22 @@
+{
+  "name": "canvas-2d-pie-chart",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "data-canvas": "0.1.x"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rofrol/canvas-2d-pie-chart.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rofrol/canvas-2d-pie-chart/issues"
+  },
+  "homepage": "https://github.com/rofrol/canvas-2d-pie-chart#readme"
+}
