@@ -17,10 +17,12 @@ co.arc(x, y, smallCircleRadius, 0, 2 * Math.PI, false);
 co.fillStyle = '#aaa';
 co.fill();
 
-/* big circle */
 
 co.strokeStyle = '#333';
-co.lineWidth = 2;
+co.lineWidth = 100;
+
+
+/* big circle */
 
 var prevAngle = 0;
 
