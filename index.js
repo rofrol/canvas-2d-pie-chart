@@ -19,8 +19,10 @@ co.lineWidth = 15;
 co.strokeStyle = '#a31343';
 co.stroke();
 
+/* small circle */
+var smallCircleRadius = 100;
 co.beginPath();
-co.arc(x, y, 80, 0, 2 * Math.PI, false);
+co.arc(x, y, smallCircleRadius, 0, 2 * Math.PI, false);
 co.fillStyle = 'green';
 co.fill();
 
@@ -32,6 +34,8 @@ co.strokeStyle = 'red';
 co.lineCap = 'round';
 co.stroke();
 
+/* big circle */
+
 co.strokeStyle = '#333';
 co.lineWidth = 2;
 
@@ -42,21 +46,29 @@ var angle = prevAngle + fraction * Math.PI * 2;
 co.fillStyle = '#24e344';
 co.beginPath();
 co.moveTo(x, y);
+co.arc(x, y, smallCircleRadius, angle, prevAngle, true);
 co.arc(x, y, radius, prevAngle, angle, false);
+co.closePath();
 co.lineTo(x, y);
 co.fill();
 
-var pos = 0;
 
+/* segment lines */
+var pos = {};
+var smallPos = {};
+
+co.lineCap = 'butt';
 co.beginPath();
+smallPos = lineToAngle(x, y, smallCircleRadius, prevAngle);
 pos = lineToAngle(x, y, radius, prevAngle);
-co.moveTo(x, y);
+co.moveTo(smallPos.x, smallPos.y);
 co.lineTo(pos.x, pos.y);
 co.stroke();
 
 co.beginPath();
+smallPos = lineToAngle(x, y, smallCircleRadius, angle);
 pos = lineToAngle(x, y, radius, angle);
-co.moveTo(x, y);
+co.moveTo(smallPos.x, smallPos.y);
 co.lineTo(pos.x, pos.y);
 co.stroke();
 
