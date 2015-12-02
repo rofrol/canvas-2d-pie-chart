@@ -31,3 +31,20 @@ co.lineWidth = 10;
 co.strokeStyle = 'red';
 co.lineCap = 'round';
 co.stroke();
+
+co.strokeStyle = '#333';
+co.lineWidth = 2;
+
+var prevAngle = 0;
+
+var fraction = 0.35;
+var angle = prevAngle + fraction * Math.PI * 2;
+co.fillStyle = '#24e344';
+co.beginPath();
+co.moveTo(x, y);
+co.arc(x, y, radius, prevAngle, angle, false);
+co.lineTo(x, y);
+co.fill();
+co.stroke();
+
+
