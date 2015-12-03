@@ -8,100 +8,71 @@ co.fillText('hello', 0, 0);
 
 var x = ca.width / 2;
 var y = ca.height / 2;
-var radius = 300;
+
+var config = {
+    lineCap: 'butt',
+    lineWidth: 10,
+    strokeStyle: '#333',
+    smallCircleRadius: 100,
+    radius: 300
+};
 
 /* small circle */
-var smallCircleRadius = 100;
 co.beginPath();
-co.arc(x, y, smallCircleRadius, 0, 2 * Math.PI, false);
+co.arc(x, y, config.smallCircleRadius, 0, 2 * Math.PI, false);
 co.fillStyle = '#aaa';
 co.fill();
 
-
-co.strokeStyle = '#333';
-co.lineWidth = 100;
-
+var segments = [
+    {
+        fraction: 0.35,
+        fillStyle: '#24e344'
+    },
+    {
+        fraction: 0.50,
+        fillStyle: '#aabb55'
+    },
+    {
+        fraction: 0.15,
+        fillStyle: '#005bb5'
+    }
+];
 
 /* big circle */
-
 var prevAngle = 0;
+var segment = {};
+var angle = 0;
+var i = 0;
 
-var fraction = 0.35;
-var angle = prevAngle + fraction * Math.PI * 2;
-co.fillStyle = '#24e344';
-co.beginPath();
-co.moveTo(x, y);
-co.arc(x, y, smallCircleRadius, angle, prevAngle, true);
-co.arc(x, y, radius, prevAngle, angle, false);
-co.closePath();
-co.lineTo(x, y);
-co.fill();
+for(i = 0; i < segments.length; ++i, prevAngle = angle) {
+    angle = prevAngle + segments[i].fraction * Math.PI * 2;
+    co.fillStyle = segments[i].fillStyle;
+    co.beginPath();
+    co.moveTo(x, y);
+    co.arc(x, y, config.smallCircleRadius, angle, prevAngle, true);
+    co.arc(x, y, config.radius, prevAngle, angle, false);
+    co.fill();
+}
 
-
-/* segment line */
+prevAngle = 0;
 var pos = {};
 var smallPos = {};
 
-co.lineCap = 'butt';
+co.lineCap = config.lineCap;
+co.strokeStyle = config.strokeStyle;
+co.lineWidth = config.lineWidth;
 
-co.beginPath();
-smallPos = lineToAngle(x, y, smallCircleRadius, prevAngle);
-pos = lineToAngle(x, y, radius, prevAngle);
-co.moveTo(smallPos.x, smallPos.y);
-co.lineTo(pos.x, pos.y);
-co.stroke();
+/* segment lines */
+for(i = 0; i < segments.length; ++i, prevAngle = angle) {
+    angle = prevAngle + segments[i].fraction * Math.PI * 2;
+    smallPos = lineToAngle(x, y, config.smallCircleRadius, prevAngle);
+    pos = lineToAngle(x, y, config.radius, prevAngle);
 
-/* big circle */
-
-co.strokeStyle = '#333';
-co.lineWidth = 2;
-
-prevAngle = angle;
-
-fraction = 0.50;
-angle = prevAngle + fraction * Math.PI * 2;
-co.fillStyle = '#aabb55';
-co.beginPath();
-co.moveTo(x, y);
-co.arc(x, y, smallCircleRadius, angle, prevAngle, true);
-co.arc(x, y, radius, prevAngle, angle, false);
-co.closePath();
-co.lineTo(x, y);
-co.fill();
-
-/* segment line */
-co.beginPath();
-smallPos = lineToAngle(x, y, smallCircleRadius, prevAngle);
-pos = lineToAngle(x, y, radius, prevAngle);
-co.moveTo(smallPos.x, smallPos.y);
-co.lineTo(pos.x, pos.y);
-co.stroke();
-
-/* big circle */
-
-co.strokeStyle = '#333';
-co.lineWidth = 2;
-
-prevAngle = angle;
-
-fraction = 0.15;
-angle = prevAngle + fraction * Math.PI * 2;
-co.fillStyle = '#005bb5';
-co.beginPath();
-co.moveTo(x, y);
-co.arc(x, y, smallCircleRadius, angle, prevAngle, true);
-co.arc(x, y, radius, prevAngle, angle, false);
-co.closePath();
-co.lineTo(x, y);
-co.fill();
-
-/* segment line */
-co.beginPath();
-smallPos = lineToAngle(x, y, smallCircleRadius, prevAngle);
-pos = lineToAngle(x, y, radius, prevAngle);
-co.moveTo(smallPos.x, smallPos.y);
-co.lineTo(pos.x, pos.y);
-co.stroke();
+    co.beginPath();
+    co.moveTo(smallPos.x, smallPos.y);
+    co.lineTo(pos.x, pos.y);
+    co.stroke();
+}
 
 function lineToAngle(x, y, length, angle) {
     return {
